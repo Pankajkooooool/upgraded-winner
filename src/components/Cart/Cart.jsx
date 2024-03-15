@@ -5,7 +5,10 @@ import { useSelector } from "react-redux";
 import { removeItem, resetCart } from "../../redux/cartReducer";
 import { useDispatch } from "react-redux";
 import { makeRequest } from "../../makeRequest";
-import { loadStripe } from "@stripe/stripe-js";
+
+
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
 
 const Cart = () => {
   const products = useSelector((state) => state.cart.products);
@@ -19,25 +22,56 @@ const Cart = () => {
     return total.toFixed(2);
   };
 
-  const stripePromise = loadStripe(
-    "pk_test_51MDu0zSHp6YEubUzUcwOW0Lt2QABBYHwyv2xr4IxjZ1RXOwp3MYIpJyfkkVjILdUj8aMKjma5aHvWq4YqkAaWvNu00A7qebDK1"
-  );
-  const handlePayment = async () => {
-    try {
-      console.log(products);
-      const stripe = await stripePromise;
-      const res = await makeRequest.post("/orders", {
-        "data":products[0],
-        
-      });
-      await stripe.redirectToCheckout({
-        sessionId: res.data.stripeSession.id,
-      });
+  // const options = {
+  //   // passing the client secret obtained from the server
+  //   clientSecret: '{{CLIENT_SECRET}}',
+  // };
+  // const stripePromise = loadStripe(
+  //   "pk_test_51MDu0zSHp6YEubUzUcwOW0Lt2QABBYHwyv2xr4IxjZ1RXOwp3MYIpJyfkkVjILdUj8aMKjma5aHvWq4YqkAaWvNu00A7qebDK1"
+  // );
+  // const makePayment = async() =>{
+  //   const stripe = await loadStripe("pk_test_51MDu0zSHp6YEubUzUcwOW0Lt2QABBYHwyv2xr4IxjZ1RXOwp3MYIpJyfkkVjILdUj8aMKjma5aHvWq4YqkAaWvNu00A7qebDK1");
 
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  //   const body = {
+  //     products: products
+  //   }
+  //   const headers = {
+  //     "Content-Type": "application/json" 
+  //   }
+  //   const response = await fetch(`${apiURL}/create-checkout-session`, {
+  //     method:"POST",
+  //     headers: headers,
+  //     body: JSON.stringify(body)
+  //   })
+   
+  //   const session = await response.json();
+  //   const result = stripe.redirectToCheckout({
+  //   sessionId: session.id
+  //   })
+  //   if(!result){
+  //     console.log(result)
+  //   }
+  
+const handlePayment = ()=>{
+  alert(`Your Order for ${totalPrice()} is  succesfully placed !`)
+  dispatch(resetCart())
+}
+  // const handlePayment = async () => {
+  //   try {
+  //     console.log(products);
+  //     const stripe = await stripePromise;
+  //     const res = await makeRequest.post("/orders", {
+  //       "data":products[0],
+        
+  //     });
+  //     await stripe.redirectToCheckout({
+  //       sessionId: res.data.stripeSession.id,
+  //     });
+
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
   return (
     <div className="cart">
       <h1>Products in your cart</h1>

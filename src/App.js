@@ -5,7 +5,8 @@ import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Product from "./pages/Product/Product";
 import Products from "./pages/Products/Products";
-import "./app.scss"
+import "./app.scss";
+import Login from "./pages/Signin/Login";
 
 const Layout = () => {
   return (
@@ -16,6 +17,7 @@ const Layout = () => {
     </div>
   );
 };
+const isLoggedIn = localStorage.getItem('auth')
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: isLoggedIn?<Home />:<Login />,
       },
       {
         path: "/products/:id",
@@ -34,6 +36,7 @@ const router = createBrowserRouter([
         path: "/product/:id",
         element: <Product />,
       },
+      { path:"login", element: <Login /> },
     ],
   },
 ]);

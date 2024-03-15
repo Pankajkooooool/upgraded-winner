@@ -37,11 +37,12 @@ const Navbar = () => {
         
           <div className="icons">
            
-            <FavoriteBorderOutlinedIcon/>
+           
             <div className="cartIcon" onClick={()=>setOpen(!open)}>
               <ShoppingCartOutlinedIcon/>
               <span>{products.length}</span>
             </div>
+          {/* <div >Logout</div> */}
           </div>
         </div>
       </div>
