@@ -52,26 +52,23 @@ const Cart = () => {
   //     console.log(result)
   //   }
   
-const handlePayment = ()=>{
-  alert(`Your Order for ${totalPrice()} is  succesfully placed !`)
-  dispatch(resetCart())
-}
-  // const handlePayment = async () => {
-  //   try {
-  //     console.log(products);
-  //     const stripe = await stripePromise;
-  //     const res = await makeRequest.post("/orders", {
-  //       "data":products[0],
-        
-  //     });
-  //     await stripe.redirectToCheckout({
-  //       sessionId: res.data.stripeSession.id,
-  //     });
 
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const handlePayment = async () => {
+    try {
+      console.log(products);
+      
+      const res = await makeRequest.post("/orders", {
+        "data":products[0],
+        
+      });
+      
+      alert(`Your Order for ${totalPrice()} is  succesfully placed !`)
+      dispatch(resetCart())
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="cart">
       <h1>Products in your cart</h1>
