@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import "./FeaturedProducts.scss";
 import useFetch from "../../hooks/useFetch";
@@ -10,7 +10,7 @@ const FeaturedProducts = ({ type }) => {
     `/products?_limit=10`
     
   );
-
+    
   return (
     <div className="featuredProducts">
       <div className="top">

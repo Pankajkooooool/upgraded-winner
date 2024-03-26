@@ -1,6 +1,12 @@
 import React from 'react'
 import './login.css'
+import { useState } from 'react';
+import img from '../../components/Card/ok.jpeg'
 const Login = () => {
+
+  const [backgroundImage, setBackgroundImage] = useState('');
+  const [display, setDisplay] = useState('100');
+
     function submitform(event)  {
         event.preventDefault();
     }
@@ -48,12 +54,12 @@ const Login = () => {
 
 
   return (
-    <div className='center_everything' style={{'justify-content': 'center','display':'flex',}}>
-        <form className="form_container" onSubmit={
+    <div className='center_everything'  style={{'justify-content': 'center','display':'flex',backgroundImage: backgroundImage,'background-size':'contain' }}>
+        <form className="form_container" style={{'opacity': display}} onSubmit={
            submitform
         }>
   
-  <div className="title_container">
+  <div className="title_container" >
     <p className="title">Sign-in to your Account</p>
     <span className="subtitle">Get started with our app, just create an account and enjoy the Shopping.</span>
   </div>
@@ -77,7 +83,13 @@ const Login = () => {
   </div>
   <button title="Sign In"  className="sign-in_btn" onClick={()=>{
     localStorage.setItem('auth',true);
-    window.location.reload();
+    setBackgroundImage(`url('${img}')`);
+    setDisplay('0')
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+    
+    
   }}>
     <span>Sign In</span>
   </button>
